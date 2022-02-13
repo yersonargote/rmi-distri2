@@ -1,14 +1,19 @@
-package sensor.presentacion;
+package especial.presentacion;
 
-import sensor.sop_rmi.GestionTemperatura;
-import sensor.utilidades.Parse;
-import sensor.utilidades.RegistroC;
+import especial.sop_rmi.GestionTemperatura;
+import especial.utilidades.Parse;
+import especial.utilidades.RegistroC;
+
+
 import java.awt.event.ActionEvent;
 
 import mvcf.AActionController;
 import mvcf.AModel;
 import mvcf.AView;
+
 import servidor.sop_rmi.ITemperatura;
+
+
 
 /**
  *
@@ -34,14 +39,14 @@ public class RegistroController extends AActionController {
                 this.gestor.setGestorTemperatura((ITemperatura) RegistroC.getRemoteObj(ip, puerto, "servidor"));
                 boolean registrado = (this.gestor.getGestorTemperatura() != null);
                 if (registrado) {
-                    GUITemperatura guiTemperatura = new GUITemperatura();
-                    TemperaturaController temperaturaController = new TemperaturaController(this.gestor, guiTemperatura);
-
+                    GUIAdminEspecial gUIAdminEspecial = new GUIAdminEspecial();
+                    AdminEspecialController adminEspecialController = new AdminEspecialController(this.gestor, gUIAdminEspecial);
+                    
                     this.vista.setVisible(false);
-                    guiTemperatura.setVisible(true);
-
-                    guiTemperatura.getBtnEnviarTemperatura().addActionListener(temperaturaController);
-                    guiTemperatura.getBtnEnviarTemperatura().setActionCommand("enviar");
+                    gUIAdminEspecial.setVisible(true);
+                    
+                    gUIAdminEspecial.getBtnConsultar().addActionListener(adminEspecialController);
+                    gUIAdminEspecial.getBtnConsultar().setActionCommand("consultar");
                 } else {
                     this.vista.getLblMensajeErrorLogin().setText("Problema al registrar el objeto remoto del cliente.");
                 }

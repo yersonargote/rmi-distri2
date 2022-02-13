@@ -42,8 +42,11 @@ public class GUIAdmin extends javax.swing.JFrame {
         lblTitulo.setPreferredSize(new java.awt.Dimension(400, 20));
         getContentPane().add(lblTitulo, java.awt.BorderLayout.NORTH);
 
+        txtaNotificaciones.setEditable(false);
         txtaNotificaciones.setColumns(20);
+        txtaNotificaciones.setLineWrap(true);
         txtaNotificaciones.setRows(5);
+        txtaNotificaciones.setWrapStyleWord(true);
         jScrollPane1.setViewportView(txtaNotificaciones);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);

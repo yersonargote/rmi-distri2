@@ -41,7 +41,7 @@ public class RegistroController extends AActionController {
                     INotificacion notificacion = new Notificacion(gUIAdmin);
                     //RegistroS.arrancarNS(puerto);
                     RegistroS.RegistrarObjetoRemoto(notificacion, ip, puerto, "notificacion");
-                    ITemperatura temperatura = (ITemperatura) RegistroC.getRemoteObj(ip, puerto, "sensor");
+                    ITemperatura temperatura = (ITemperatura) RegistroC.getRemoteObj(ip, puerto, "servidor");
                     temperatura.registrarAdmin(notificacion);
                     registrado = true;
                 } catch (java.rmi.RemoteException e) {

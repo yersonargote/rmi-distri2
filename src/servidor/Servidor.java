@@ -31,7 +31,7 @@ public class Servidor {
         try {
             ITemperatura gestionUsuarios = new Temperatura();
             RegistroS.arrancarNS(puerto);
-            RegistroS.RegistrarObjetoRemoto(gestionUsuarios, ip, puerto, "sensor");
+            RegistroS.RegistrarObjetoRemoto(gestionUsuarios, ip, puerto, "servidor");
         } catch (RemoteException e) {
             System.err.println("No fue posible Arrancar el NS o Registrar el objeto remoto" + e.getMessage());
         }
