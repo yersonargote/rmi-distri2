@@ -2,7 +2,7 @@ package admin;
 
 import admin.presentacion.GUIRegistro;
 import admin.presentacion.RegistroController;
-import admin.sop_rmi.GestionNotificacion;
+import admin.sop_rmi.GestionAdministrador;
 
 /**
  *
@@ -11,7 +11,7 @@ import admin.sop_rmi.GestionNotificacion;
 public class Admin {
     public static void main(String[] args) {
         // Modelo para gestion de tempertura.
-        GestionNotificacion gestionNotificacion = new GestionNotificacion();
+        GestionAdministrador gestionNotificacion = new GestionAdministrador();
         
         // Vista. GUI registro para ip y puerto.
         GUIRegistro guiRegistro = new GUIRegistro();

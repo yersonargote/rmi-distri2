@@ -18,12 +18,12 @@ import servidor.utilidades.RegistroS;
  */
 public class RegistroController extends AActionController {
 
-    private GestionNotificacion gestor;
+    private GestionAdministrador gestor;
     private final GUIRegistro vista;
 
     public RegistroController(AModel myModel, AView myView) {
         super(myModel, myView);
-        this.gestor = (GestionNotificacion) myModel;
+        this.gestor = (GestionAdministrador) myModel;
         this.vista = (GUIRegistro) myView;
     }
 
@@ -34,6 +34,8 @@ public class RegistroController extends AActionController {
                 String ip = this.vista.getTxtIp().getText();
                 int puerto = Parse.StringToInt(this.vista.getTxtPuerto().getText());
                 boolean registrado = false;
+                
+                GUIAbrirSesion gUIAbrirSesion = new GUIAbrirSesion();
 
                 GUIAdmin gUIAdmin = new GUIAdmin();
 
@@ -43,6 +45,7 @@ public class RegistroController extends AActionController {
                     RegistroS.RegistrarObjetoRemoto(notificacion, ip, puerto, "notificacion");
                     ITemperatura temperatura = (ITemperatura) RegistroC.getRemoteObj(ip, puerto, "servidor");
                     temperatura.registrarAdmin(notificacion);
+                    this.gestor.setTemperatura(temperatura);
                     registrado = true;
                 } catch (java.rmi.RemoteException e) {
                     System.err.println("No fue posible Arrancar el NS o Registrar el objeto remoto" + e.getMessage());

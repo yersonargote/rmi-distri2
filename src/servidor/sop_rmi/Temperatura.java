@@ -10,6 +10,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import servidor.dto.CredencialDTO;
 import servidor.dto.RangoDTO;
 import servidor.dto.TemperaturaFueraRangoDTO;
 import servidor.utilidades.Utilidades;
@@ -18,8 +19,9 @@ import servidor.utilidades.Utilidades;
  *
  * @author yerso
  */
-public class Temperatura extends UnicastRemoteObject implements ITemperatura {
+public class Temperatura extends UnicastRemoteObject implements ITemperatura, IGestionAdmins {
 
+    private List<CredencialDTO> users;
     private List<INotificacion> admins;
     private RangoDTO rango;
     private List<TemperaturaFueraRangoDTO> fueraRango;
@@ -31,6 +33,7 @@ public class Temperatura extends UnicastRemoteObject implements ITemperatura {
 
         this.admins = new ArrayList<>();
         this.fueraRango = new ArrayList<>();
+        this.users = new ArrayList<>();
         this.rango = leerRangoTemperatura();
     }
 
@@ -103,6 +106,30 @@ public class Temperatura extends UnicastRemoteObject implements ITemperatura {
             }
         }
         return cantidad;
+    }
+
+    @Override
+    public boolean registrarAdmin(CredencialDTO credencialDTO) throws RemoteException {
+        boolean existe = false;
+        for (CredencialDTO c : this.users) {
+            if (c.getUsuario().equals(credencialDTO.getUsuario())) {
+                existe = true;
+            }
+        }
+        if (!existe) {
+            this.users.add(credencialDTO);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean iniciarSesion(CredencialDTO credencialesDTO) throws RemoteException {
+        for (CredencialDTO c : this.users) {
+            if (c.getUsuario().equals(credencialesDTO.getUsuario()) && c.getClave().equals(credencialesDTO.getClave())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
